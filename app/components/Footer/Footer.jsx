@@ -1,4 +1,3 @@
-import React from "react";
 
 export default function Footer() {
   return (
@@ -18,7 +17,7 @@ export default function Footer() {
           style={{backgroundColor: "rgba(0, 0, 0, 0.2)"}}
         >
           © 2024 Copyright :&nbsp;
-          <a className="text-white" href="index.html">
+          <a className="text-white" href="/">
             SCHospital.com
           </a>
         </div>

@@ -30,7 +30,7 @@ export default function Login() {
         },
         { withCredentials: WITH_CREDENTIALS }
       );
-      router.replace("/");
+      router.replace("/",{scroll:true});
       router.refresh();
     } catch {
       setIsLoading(false)
@@ -49,7 +49,7 @@ export default function Login() {
           </div>
 
           <div className="form-group">
-            <label for="userName">UserName</label>
+            <label htmlFor="userName">UserName</label>
             <input
               name="userNameLog"
               id="userName"
@@ -61,7 +61,7 @@ export default function Login() {
             />
           </div>
           <div className="form-group mt-3">
-            <label for="passwd">Password</label>
+            <label htmlFor="passwd">Password</label>
             <input
               name="passwordLog"
               type="password"
@@ -77,7 +77,7 @@ export default function Login() {
               className="form-check-input"
               type="checkbox"
             />
-            <label style={{ cursor: "pointer" }} for="showPassLogin">
+            <label style={{ cursor: "pointer" }} htmlFor="showPassLogin">
               Show my password
             </label>
           </div>

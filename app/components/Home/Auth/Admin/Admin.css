@@ -16,8 +16,8 @@ body,html{
     width: 10em;
 }
 .active-aside{
-    background-color: var(--bs-primary);
-    color: white;
+    background-color: var(--bs-primary)!important;
+    color: white!important;
 }
 @media(min-width:992px){
     aside{
@@ -27,3 +27,11 @@ body,html{
 .item-aside{
     border: 1px white solid !important;
 }
+/* .patient-sidebar:hover,.doctor-sidebar:hover{
+    background-color: var(--bs-primary)!important;
+    color:white!important;
+
+}
+.patient-sidebar,.doctor-sidebar{
+    transition-duration: .2s;
+} */

@@ -1,10 +1,13 @@
 import checkCookies from '@/app/extra-services/checkCookies'
 import React from 'react'
-import Auth from './Auth'
+import NavPatient from './Auth/NavPatient'
 import Unauth from './Unauth'
+import NavDoctor from './Auth/NavDoctor'
+import NavAdmin from './Auth/NavAdmin'
 
 export default function Navbar() {
+  const role=checkCookies()
   return (
-    <>{checkCookies()?<Auth/>:<Unauth/>}</>
+    <>{role?(role=="Pat"?<NavPatient/>:role=="Doc"?<NavDoctor/>:<NavAdmin/>):<Unauth/>}</>
   )
 }

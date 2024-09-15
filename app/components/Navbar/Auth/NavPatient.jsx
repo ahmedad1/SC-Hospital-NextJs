@@ -2,8 +2,8 @@ import Image from "next/image";
 import userSolid from "@/app/public/user-solid.svg"
 import Link from "next/link";
 import { cookies } from "next/headers";
-import SignOutBtn from "../SignOutBtn/SignOutBtn";
-export default function Auth() {
+import SignOutBtn from "../../SignOutBtn/SignOutBtn";
+export default function NavPatient() {
   return (
     <nav className="navbar navbar-expand-lg bg-light navbar-light position-relative z-3 ">
       <div className="container-fluid">

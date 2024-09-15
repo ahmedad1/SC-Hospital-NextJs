@@ -1,14 +1,15 @@
 import checkCookies from "@/app/extra-services/checkCookies";
 import Patient from "./Auth/Patient/Patient";
 import Unauth from "./Unauth/Unauth";
-import Admin from "./Auth/Admin/Admin";
+import Doctor from "./Auth/Doctor/Doctor";
 
 
 export default function Home() {
   const role=checkCookies()
+ 
   return (
     <>
-    {role?(role==="Adm"?<Admin/>:<Patient/>):<Unauth/>}
+    {role?(role==="Doc"?<Doctor/>:<Patient/>):<Unauth/>}
     </>
   )
 }

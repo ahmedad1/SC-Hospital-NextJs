@@ -102,7 +102,7 @@ export default function SignUp() {
               className="ms-2"
               required
             />
-            <label for="Male" className="d-flex align-items-center mb-0 ms-2 ">
+            <label htmlFor="Male" className="d-flex align-items-center mb-0 ms-2 ">
               Male
             </label>
             <input
@@ -113,7 +113,7 @@ export default function SignUp() {
               value="Female"
               required
             />
-            <label for="Female" className="d-flex align-items-center mb-0 ms-2 ">
+            <label htmlFor="Female" className="d-flex align-items-center mb-0 ms-2 ">
               Female
             </label>
           </div>
@@ -121,7 +121,7 @@ export default function SignUp() {
         <div className="form-check mt-3">
           <input type="checkbox"  id="showPassSignUp" className="form-check-input " />
           <label
-            for="showPassSignUp"
+            htmlFor="showPassSignUp"
             className="form-check-label"
             style={{ cursor: "pointer" }}
           >
