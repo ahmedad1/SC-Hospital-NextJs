@@ -1,0 +1,9 @@
+.landing{
+    height:calc(100vh - 55.97px)!important;
+    background:rgba(0, 0, 0, .7) url("../../../../public/landing.jpg")!important;
+    background-attachment: fixed!important;/*................*/
+    background-repeat: no-repeat!important;
+    background-size: cover!important;
+    background-blend-mode:darken!important ;
+    
+    }

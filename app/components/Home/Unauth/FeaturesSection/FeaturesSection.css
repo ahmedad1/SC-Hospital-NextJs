@@ -1,0 +1,21 @@
+.card{
+    margin-top: 12px;
+
+}
+@media(min-width:992px){
+    .hw {
+        height: 12.4em !important;
+    }
+}
+@media(min-width:1200px){
+    .hw {
+        height: 15em !important;
+    }
+}
+img.feature{
+    height: 290px !important;
+    object-fit: cover;
+}
+img.feature +.card-body .card-text{
+    height: 6em;
+}
