@@ -1,6 +1,8 @@
 
-import "../Admin.css"
-export default function PatientSection({ children }) {
+
+import "../../Admin.css"
+import FetchPatients from "./FetchPatients";
+export default function PatientSection() {
   return (
     <>
       <section
@@ -15,13 +17,17 @@ export default function PatientSection({ children }) {
               <th scope="col">User Name</th>
               <th scope="col">Email</th>
               <th scope="col">Gender</th>
-              <th scope="col">BirthDate</th>
-              <th scope="col">EmailConfirmed</th>
-              <th scope="col">Options</th>
-              <th scope="col">Commit</th>
+              <th scope="col">Birthdate</th>
+              <th scope="col">Is Confirmed</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
-          <tbody>{children}</tbody>
+          <tbody>
+        
+            <FetchPatients/>
+          
+            </tbody>
         </table>
       </section>
       <div className="modal fade" id="confirmDelete">

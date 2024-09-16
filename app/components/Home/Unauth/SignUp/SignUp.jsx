@@ -1,12 +1,72 @@
-import React from "react";
+"use client";
+
+import {
+  BACKEND_BASEURL,
+  WITH_CREDENTIALS,
+} from "@/app/extra-services/constants";
+import axios from "axios";
+import { useRouter } from "next/navigation";
+import Cookies from "cookie-universal";
+import { useRef, useState } from "react";
+import Swal from "sweetalert2";
+import { Oval } from "react-loader-spinner";
 
 export default function SignUp() {
+  const [firstName, setFirstName] = useState("");
+  const [lastName, setLastName] = useState("");
+  const [userName, setUserName] = useState("");
+  const [email, setEmail] = useState("");
+  const [birthDate, setBirthDate] = useState("");
+  const [password, setPassword] = useState("");
+  const [gender, setGender] = useState("");
+  const [isLoading, setIsLoading] = useState(false);
+  const inputPasswordRef = useRef();
+  const router = useRouter();
+  const cookies = Cookies();
+  async function submitForm(e) {
+    e.preventDefault();
+    if (isLoading) return;
+    try {
+      setIsLoading(true);
+      await axios.post(
+        `${BACKEND_BASEURL}api/Account/sign-up`,
+        {
+          firstName: firstName,
+          lastName: lastName,
+          userName: userName,
+          birthDate: birthDate,
+          gender: gender,
+          email: email,
+          password: password,
+        },
+        { withCredentials: WITH_CREDENTIALS }
+      );
+      cookies.set("email", email, {
+        expires: new Date(new Date().getTime() + 24 * 60 * 60 * 1000),
+        secure: true,
+      });
+      router.push("/email-confirmation");
+    } catch (e) {
+      setIsLoading(false);
+      if (e.response.data.success === false) {
+        Swal.fire({
+          title: `${e.response.data.alreadyExistField} is already registered`,
+          icon: "error",
+        });
+      }
+    }
+  }
   return (
     <div className="container mt-5" id="sign-up">
       <div id="contact" className="d-flex justify-content-center">
         <h3>Sign Up</h3>
       </div>
-      <form action="" method="post" className="form-control p-5 mt-4 formsignup">
+      <form
+        onSubmit={async (e) => {
+          await submitForm(e);
+        }}
+        className="form-control p-5 mt-4 formsignup"
+      >
         <div className="form-group">
           <div className="input-group">
             <div className="input-group-prepend">
@@ -16,6 +76,7 @@ export default function SignUp() {
               name="fname"
               type="text"
               className="form-control"
+              onChange={(e) => setFirstName(e.target.value)}
               required
               placeholder="Enter Your First Name"
             />
@@ -29,6 +90,7 @@ export default function SignUp() {
             <input
               name="lname"
               type="text"
+              onChange={(e) => setLastName(e.target.value)}
               className="form-control"
               required
               placeholder="Enter Your Last Name"
@@ -42,6 +104,7 @@ export default function SignUp() {
             </div>
             <input
               type="email"
+              onChange={(e) => setEmail(e.target.value)}
               name="emailsign"
               required
               placeholder="example@example.com"
@@ -58,6 +121,7 @@ export default function SignUp() {
             <input
               name="userNameSign"
               type="text"
+              onChange={(e) => setUserName(e.target.value)}
               placeholder="Enter Your UserName"
               maxLength="100"
               required
@@ -70,7 +134,13 @@ export default function SignUp() {
             <div className="input-group-prepend">
               <span className="input-group-text">&nbsp;Birthday&nbsp;</span>
             </div>
-            <input name="bDate" type="date" required className="form-control" />
+            <input
+              onChange={(e) => setBirthDate(e.target.value)}
+              name="bDate"
+              type="date"
+              required
+              className="form-control"
+            />
           </div>
         </div>
         <div className="form-group mt-3">
@@ -84,6 +154,8 @@ export default function SignUp() {
               placeholder="Enter A Strong Password"
               maxLength="100"
               minLength="8"
+              onChange={(e) => setPassword(e.target.value)}
+              ref={inputPasswordRef}
               required
               className="form-control"
             />
@@ -101,8 +173,14 @@ export default function SignUp() {
               value="Male"
               className="ms-2"
               required
+              onChange={(e) => {
+                if (e.target.checked) setGender(e.target.value);
+              }}
             />
-            <label htmlFor="Male" className="d-flex align-items-center mb-0 ms-2 ">
+            <label
+              htmlFor="Male"
+              className="d-flex align-items-center mb-0 ms-2 "
+            >
               Male
             </label>
             <input
@@ -111,15 +189,30 @@ export default function SignUp() {
               id="Female"
               className="ms-2"
               value="Female"
+              onChange={(e) => {
+                if (e.target.checked) setGender(e.target.value);
+              }}
               required
             />
-            <label htmlFor="Female" className="d-flex align-items-center mb-0 ms-2 ">
+            <label
+              htmlFor="Female"
+              className="d-flex align-items-center mb-0 ms-2 "
+            >
               Female
             </label>
           </div>
         </div>
         <div className="form-check mt-3">
-          <input type="checkbox"  id="showPassSignUp" className="form-check-input " />
+          <input
+            type="checkbox"
+            onChange={(e) => {
+              inputPasswordRef.current.type = e.target.checked
+                ? "text"
+                : "password";
+            }}
+            id="showPassSignUp"
+            className="form-check-input "
+          />
           <label
             htmlFor="showPassSignUp"
             className="form-check-label"
@@ -130,9 +223,21 @@ export default function SignUp() {
         </div>
         <button
           type="submit"
-          className="btn btn-outline-primary w-100 mt-2 signUpBtn"
+          disabled={isLoading}
+          className="btn btn-outline-primary w-100 mt-2 signUpBtn d-flex justify-content-center gap-1 align-items-center"
         >
           Create My Account
+          {isLoading && (
+            <Oval
+              visible={true}
+              height="18"
+              width="18"
+              color="#0d6efd"
+              ariaLabel="oval-loading"
+              wrapperStyle={{}}
+              wrapperclassName="mt-1 ms-1"
+            />
+          )}
         </button>
       </form>
     </div>

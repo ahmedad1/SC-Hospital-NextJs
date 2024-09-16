@@ -1,10 +1,29 @@
 "use client";
 import Link from "next/link";
 import "../Admin.css";
-import { useRef } from "react";
+import { useEffect, useRef } from "react";
+import { usePathname } from "next/navigation";
+
 export default function AsideAdmin() {
   const patientRef = useRef();
   const doctorRef = useRef();
+  const pathname = usePathname();
+  useEffect(
+    (_) => {
+      if (pathname === "/doctors") {
+        if (!doctorRef.current.classList.contains("active-aside")) {
+          patientRef.current.classList.remove("active-aside");
+          doctorRef.current.classList.add("active-aside");
+        }
+      } else {
+        if (!patientRef.current.classList.contains("active-aside")) {
+          doctorRef.current.classList.remove("active-aside");
+          patientRef.current.classList.add("active-aside");
+        }
+      }
+    },
+    [pathname]
+  );
 
   return (
     <aside className="aside-admin col-lg-1 col-12 pe-0 ">

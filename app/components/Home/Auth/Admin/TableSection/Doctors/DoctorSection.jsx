@@ -1,8 +1,9 @@
 import Link from "next/link";
-import "../Admin.css";
+import "../../Admin.css";
+import FetchDoctors from "./FetchDoctors";
 
 
-export default function DoctorSection({ children }) {
+export default function DoctorSection() {
 
   return (
     <>
@@ -29,14 +30,12 @@ export default function DoctorSection({ children }) {
               <th scope="col">BirthDate</th>
               <th scope="col">EmailConfirmed</th>
               <th scope="col">Department</th>
-              <th scope="col">StartTime</th>
-              <th scope="col">EndTime</th>
-              <th scope="col">Days</th>
-              <th scope="col">Options</th>
-              <th scope="col">Commit</th>
+              <th scope="col">Schedule</th>
+              <th scope="col">Update</th>
+              <th scope="col">Delete</th>
             </tr>
           </thead>
-          <tbody>{children}</tbody>
+          <tbody><FetchDoctors/></tbody>
         </table>
       </section>
     </>
