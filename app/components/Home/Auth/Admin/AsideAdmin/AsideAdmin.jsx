@@ -39,7 +39,7 @@ export default function AsideAdmin() {
                 e.target.classList.add("active-aside");
               }
             }}
-            className={`d-flex align-items-center justify-content-center patient-sidebar active-aside list-group-item  list-group-item-action  `}
+            className={`d-flex align-items-center justify-content-center patient-sidebar  list-group-item  list-group-item-action  `}
             style={{ border: "none", borderRadius: "0" }}
           >
             Patients

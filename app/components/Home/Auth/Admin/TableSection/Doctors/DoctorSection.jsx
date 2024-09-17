@@ -12,8 +12,7 @@ export default function DoctorSection() {
         style={{ paddingRight: "9.26px" }}
       >
         <Link
-          href="../add-doctor.html"
-          target="_blank"
+          href="/add-doctor"
           className="btn btn-info form-control"
         >
           Add Doctor

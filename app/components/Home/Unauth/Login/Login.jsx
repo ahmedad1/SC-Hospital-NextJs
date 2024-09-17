@@ -7,7 +7,7 @@ import userlogo from "@/app/public/userlogo.png";
 import axios from "axios";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
-import { useState } from "react";
+import { useRef, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
 
@@ -15,6 +15,7 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const passwordRef=useRef()
   const router = useRouter();
   async function submitForm(e) {
     e.preventDefault();
@@ -65,6 +66,7 @@ export default function Login() {
             <input
               name="passwordLog"
               type="password"
+              ref={passwordRef}
               className="form-control"
               required
               placeholder="Enter Your Password"
@@ -76,6 +78,9 @@ export default function Login() {
               id="showPassLogin"
               className="form-check-input"
               type="checkbox"
+              onChange={e=>{
+                passwordRef.current.type=e.target.checked?"text":"password";
+              }}
             />
             <label style={{ cursor: "pointer" }} htmlFor="showPassLogin">
               Show my password

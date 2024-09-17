@@ -1,6 +1,5 @@
-
-
-import "../../Admin.css"
+import Link from "next/link";
+import "../../Admin.css";
 import FetchPatients from "./FetchPatients";
 export default function PatientSection() {
   return (
@@ -9,6 +8,9 @@ export default function PatientSection() {
         className="section col-lg-11 col-12 p-0 table-responsive ms-lg-0 ms-2 "
         style={{ paddingRight: "9.26px" }}
       >
+        <Link href="/add-patient" className="btn btn-info form-control">
+          Add Patient
+        </Link>
         <table className="table ">
           <thead className="bg-primary text-light">
             <tr>
@@ -24,10 +26,8 @@ export default function PatientSection() {
             </tr>
           </thead>
           <tbody>
-        
-            <FetchPatients/>
-          
-            </tbody>
+            <FetchPatients />
+          </tbody>
         </table>
       </section>
       <div className="modal fade" id="confirmDelete">
