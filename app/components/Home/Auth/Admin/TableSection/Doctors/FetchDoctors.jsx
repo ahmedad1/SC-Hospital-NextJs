@@ -1,6 +1,7 @@
 "use client"
 
 import useSendAuthRequest from "@/app/extra-services/useSendAuthRequest";
+import Link from "next/link";
 import { useEffect, useState } from "react"
 import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
@@ -54,7 +55,7 @@ export default function FetchDoctors() {
     <>
     {data.map(x=>{
       return(
-        <tr>
+        <tr key={x.id}>
           <td>{x.firstName}</td>
           <td>{x.lastName}</td>
           <td>{x.userName}</td>
@@ -64,7 +65,7 @@ export default function FetchDoctors() {
           <td>{x.emailConfirmed.toString()}</td>
           <td>{x.departmentName}</td>
           <td><button className="btn btn-outline-primary">Schedule</button></td>
-          <td><button className="btn btn-outline-primary">Update</button></td>
+          <td><Link href={`/doctor/${x.id}`} className="btn btn-outline-primary">Update</Link></td>
           <td><button onClick={async e=>await handleDelete(x.id) } className="btn btn-outline-danger">Delete</button></td>
 
         </tr>

@@ -1,6 +1,7 @@
 "use client";
 
 import useSendAuthRequest from "@/app/extra-services/useSendAuthRequest";
+import Link from "next/link";
 import { useEffect, useState } from "react";
 import { Oval } from "react-loader-spinner";
 import Swal from "sweetalert2";
@@ -65,7 +66,7 @@ export default function FetchPatients() {
             <td>{e.birthDate}</td>
             <td>{e.emailConfirmed.toString()}</td>
             <td>
-              <button className="btn btn-outline-primary">Update</button>
+              <Link href={`patient/${e.id}`} className="btn btn-outline-primary">Update</Link>
             </td>
             <td>
               <button onClick={async ev=>await handleDelete(e.id)} className="btn btn-outline-danger">Delete</button>
