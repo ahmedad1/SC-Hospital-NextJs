@@ -48,7 +48,7 @@ export default function AddPatient() {
       <form
         class="form-control p-5 "
         onSubmit={async (e) => await submitForm(e)}
-        id="add-doctor-form"
+        id="add-patient-form"
       >
         <div class="form-group mt-3">
           <div class="input-group">
@@ -166,9 +166,9 @@ export default function AddPatient() {
         <button
           type="submit"
           class="btn btn-outline-primary form-control mt-3 d-flex justify-content-center gap-1 align-items-center"
-          id="addDoctor"
+          id="addPatient"
         >
-          Add Doctor
+          Add Patient
           {isLoading && (
             <Oval
               visible={true}

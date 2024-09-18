@@ -1,23 +1,45 @@
 "use client";
 
+import usePaginateFetch from "@/app/extra-services/usePaginateFetch";
 import useSendAuthRequest from "@/app/extra-services/useSendAuthRequest";
 import Link from "next/link";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Oval } from "react-loader-spinner";
+import { useSelector } from "react-redux";
 import Swal from "sweetalert2";
 
 export default function FetchPatients() {
   const sendReq = useSendAuthRequest();
   const [data, setData] = useState(null);
-  useEffect((_) => {
-    sendReq("/Account/patients?page=1")
-      .then((res) => {
-        setData(res.data);
-      })
-      .catch((e) => {
-        Swal.fire({ title: "Something went wrong", icon: "error" });
-      });
-  }, []);
+  const dataRef=useRef(data)
+  useEffect(_=>{
+    window.scrollTo({top:0,behavior:"instant"})
+
+  },[])
+  useEffect(_=>{
+    dataRef.current=data
+  })
+  usePaginateFetch("/Account/patients","patients",dataRef,setData)
+  const searchResult=useSelector(x=>x.searchResult)
+  const event=  usePaginateFetch("/Account/patients","patients",dataRef,setData,true)
+
+  useEffect(_=>{
+  if(searchResult===false)
+    window.onscroll=event
+  return function(){
+    window.onscroll=undefined
+  }
+  },[searchResult])
+  // useEffect((_) => {
+  //   window.scrollTo({top:0,behavior:"instant"})
+  //   sendReq("/Account/patients?page=1")
+  //     .then((res) => {
+  //       setData(res.data);
+  //     })
+  //     .catch((e) => {
+  //       Swal.fire({ title: "Something went wrong", icon: "error" });
+  //     });
+  // }, []);
 
   if (data==null) {
     return (
@@ -55,7 +77,7 @@ export default function FetchPatients() {
   }
   return (
     <>
-      {data.map((e) => {
+      {(searchResult !==false?searchResult:data).map((e) => {
         return (
           <tr key={e.id}>
             <td>{e.firstName}</td>

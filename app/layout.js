@@ -1,9 +1,10 @@
 import localFont from "next/font/local";
 import "./globals.css";
-import "bootstrap/dist/css/bootstrap.min.css"
+import "bootstrap/dist/css/bootstrap.min.css";
 import BootstrapComponent from "./components/BootstrapComponent";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
+import ReduxProvider from "./Redux-Toolkit/ReduxProviderComponent/ReduxProvider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -17,17 +18,20 @@ const geistMono = localFont({
 
 export const metadata = {
   title: "S.C Hospital",
-  description: "Find professional doctors or clinc for you ,Book Appointment with the doctor you want",
+  description:
+    "Find professional doctors or clinc for you ,Book Appointment with the doctor you want",
 };
 
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <Navbar/>
-        {children}
-        <Footer/>
-        <BootstrapComponent/>
+        <ReduxProvider>
+          <Navbar />
+          {children}
+        </ReduxProvider>
+        <Footer />
+        <BootstrapComponent />
       </body>
     </html>
   );
