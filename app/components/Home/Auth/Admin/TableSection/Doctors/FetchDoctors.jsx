@@ -28,13 +28,7 @@ export default function FetchDoctors() {
     },[searchResult])
   usePaginateFetch("/Account/doctors","doctors",dataRef,setData)
 
-  // useEffect(_=>{
-  //   sendReq(`/Account/doctors?page=1`).then(res=>{
-  //     setData(res.data)
-  //   }).catch(e=>{
-  //     Swal.fire({title:"Something went wrong",icon:"error"})
-  //   })
-  // },[])
+ 
   if(data ===null){
     return<>
     <tr className="position-relative ms-5"style={{height:"90vh",border:"none"}}>
@@ -82,7 +76,7 @@ export default function FetchDoctors() {
           <td>{x.birthDate}</td>
           <td>{x.emailConfirmed.toString()}</td>
           <td>{x.departmentName}</td>
-          <td><button className="btn btn-outline-primary">Schedule</button></td>
+          <td><Link href={`/${x.id}/schedule`} className="btn btn-outline-primary">Schedule</Link></td>
           <td><Link href={`/doctor/${x.id}`} className="btn btn-outline-primary">Update</Link></td>
           <td><button onClick={async e=>await handleDelete(x.id) } className="btn btn-outline-danger">Delete</button></td>
 

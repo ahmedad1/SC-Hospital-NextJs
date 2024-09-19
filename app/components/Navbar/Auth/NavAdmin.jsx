@@ -14,28 +14,39 @@ import Swal from "sweetalert2";
 export default function NavAdmin() {
   const cookies = Cookies();
   const [firstName, setFirstName] = useState(false);
-  const pathName=usePathname()
-  const[isDoctorsSection,setDoctorSection]=useState(false)
-  const [searchKey,setSearchKey]=useState("choose")
-  const [searchValue,setSearchValue]=useState("")
-  const dispatch=useDispatch()
-  const paginateSearch=usePaginatedSearch();
+  const pathName = usePathname();
+  const [isDoctorsSection, setDoctorSection] = useState(false);
+  const [searchKey, setSearchKey] = useState("choose");
+  const [searchValue, setSearchValue] = useState("");
+  const dispatch = useDispatch();
+  const paginateSearch = usePaginatedSearch();
 
-  async function submitSearch(e){
-    if(searchKey==="choose"||searchKey===""){
-      await Swal.fire({title:"You must select the search key",icon:"info",allowEnterKey:false})
-      return
+  async function submitSearch(e) {
+    if (searchKey === "choose" || searchKey === "") {
+      await Swal.fire({
+        title: "You must select the search key",
+        icon: "info",
+        allowEnterKey: false,
+      });
+      return;
     }
-    if(!searchValue)return;
-    await paginateSearch(searchKey,searchValue,`/Account${pathName.slice(0,pathName.length-1)}`,"searchKey")
+    if (!searchValue) return;
+    await paginateSearch(
+      searchKey,
+      searchValue,
+      `/Account${pathName.slice(0, pathName.length - 1)}`,
+      "searchKey"
+    );
   }
   useEffect((_) => {
     setFirstName(cookies.get("firstName"));
   }, []);
-  useEffect(_=>{
-    setDoctorSection(pathName==="/doctors")
-
-  },[pathName])
+  useEffect(
+    (_) => {
+      setDoctorSection(pathName === "/doctors");
+    },
+    [pathName]
+  );
   return (
     <nav className="navbar navbar-expand-lg bg-light navbar-light position-relative z-3 ">
       <div className="container-fluid">
@@ -48,39 +59,49 @@ export default function NavAdmin() {
 
         <div className="collapse navbar-collapse" id="N">
           <ul className="navbar-nav ms-auto ">
-            <li className="nav-item">
-              <button onClick={async e=>await submitSearch(e)} className="btn btn-outline-primary mt-lg-0 mt-2  me-3">
-                Search
-              </button>
-            </li>
-            <li className="nav-item">
-              <input
-                className="nav-link me-2 rounded mt-lg-0 mt-3 "
-                type="search"
-                placeholder="Search"
-                onKeyDown={async e=>{
-                  if(e.key==="Enter")
-                    await submitSearch(e)
-                  
-                }}
-                onChange={e=>{
-                  setSearchValue(e.target.value)
-                  if(e.target.value.length===0){
-                    dispatch(Clear())
-                  }
-                }}
-              />
-            </li>
-            <li className="nav-item">
-              <select className="form-select mt-lg-0 mt-3"onChange={e=>setSearchKey(e.target.value)}>
-                <option value={"choose"}>Search key</option>
-                {isDoctorsSection&&<option value="department">deparment</option>}
-                <option value="fullName">full name</option>
-                <option value="email">email</option>
-                <option value="userName">username</option>
-                <option value="emailConfirmed">is confirmed</option>
-              </select>
-            </li>
+            {(pathName==="/doctors"||pathName==='/patients')&&
+              <>
+                <li className="nav-item">
+                  <button
+                    onClick={async (e) => await submitSearch(e)}
+                    className="btn btn-outline-primary mt-lg-0 mt-2  me-3"
+                  >
+                    Search
+                  </button>
+                </li>
+                <li className="nav-item">
+                  <input
+                    className="nav-link me-2 rounded mt-lg-0 mt-3 "
+                    type="search"
+                    placeholder="Search"
+                    onKeyDown={async (e) => {
+                      if (e.key === "Enter") await submitSearch(e);
+                    }}
+                    onChange={(e) => {
+                      setSearchValue(e.target.value);
+                      if (e.target.value.length === 0) {
+                        dispatch(Clear());
+                      }
+                    }}
+                  />
+                </li>
+                <li className="nav-item">
+                  <select
+                    className="form-select mt-lg-0 mt-3"
+                    onChange={(e) => setSearchKey(e.target.value)}
+                  >
+                    <option value={"choose"}>Search key</option>
+                    {isDoctorsSection && (
+                      <option value="department">deparment</option>
+                    )}
+                    <option value="fullName">full name</option>
+                    <option value="email">email</option>
+                    <option value="userName">username</option>
+                    <option value="emailConfirmed">is confirmed</option>
+                  </select>
+                </li>
+              </>
+            }
 
             <li className="nav-item">
               <Link href="/" className="nav-link mt-lg-0 mt-2">
