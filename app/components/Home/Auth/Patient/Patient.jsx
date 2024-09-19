@@ -10,7 +10,7 @@ export default function Auth() {
     <>
       <Landing />
       <br /><br /><br /><br /><br />
-      <FeaturesSection className="mt-5" />
+      <FeaturesSection isAuth={true} className="mt-5" />
       <About/>
       <br /><br /><br />
     </>

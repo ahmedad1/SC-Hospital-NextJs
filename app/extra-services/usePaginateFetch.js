@@ -7,13 +7,14 @@ export default function usePaginateFetch(
   sessionStorageKey,
   oldStateRef,
   stateFunc,
-  addEventOnly=false
+  addEventOnly=false,
+  queryStartPage="?"
 ) {
     
   const sendReq = useSendAuthRequest();
   async function fetchData(pageNum) {
     window.sessionStorage.setItem(sessionStorageKey, pageNum);
-    const result = await sendReq(pathAfterApi + `?page=${pageNum}`, "get");
+    const result = await sendReq(pathAfterApi + `${queryStartPage}page=${pageNum}`, "get");
     if (result.status === 200) {
       if (result.data.length === 0) {
         window.sessionStorage.setItem(sessionStorageKey, pageNum - 1);

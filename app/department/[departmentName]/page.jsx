@@ -1,7 +1,10 @@
+import Department from '@/app/components/Home/Auth/Patient/Department/Department'
 import React from 'react'
 
-export default function page() {
+export default function page({params}) {
   return (
-    <div>page</div>
+    <>
+    <Department department={params.departmentName}/>
+    </>
   )
 }
