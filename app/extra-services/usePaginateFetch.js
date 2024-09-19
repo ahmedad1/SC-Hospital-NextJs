@@ -17,6 +17,8 @@ export default function usePaginateFetch(
     if (result.status === 200) {
       if (result.data.length === 0) {
         window.sessionStorage.setItem(sessionStorageKey, pageNum - 1);
+        if(pageNum===1)
+          stateFunc(result.data)
         return;
       }
       if (pageNum === 1) {

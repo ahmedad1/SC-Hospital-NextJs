@@ -30,18 +30,9 @@ export default function FetchPatients() {
     window.onscroll=undefined
   }
   },[searchResult])
-  // useEffect((_) => {
-  //   window.scrollTo({top:0,behavior:"instant"})
-  //   sendReq("/Account/patients?page=1")
-  //     .then((res) => {
-  //       setData(res.data);
-  //     })
-  //     .catch((e) => {
-  //       Swal.fire({ title: "Something went wrong", icon: "error" });
-  //     });
-  // }, []);
 
-  if (data==null) {
+
+  if (data===null) {
     return (
       <tr className="position-relative ms-5"style={{height:"90vh",border:"none"}}>
         <td style={{border:"none"}} className="d-flex mt-2 ms-5 justify-content-center gap-1 align-items-center display-4 position-absolute top-0">

@@ -1,5 +1,6 @@
 "use client";
 import LoadingComponent from "@/app/components/LoadingComponent";
+import { days } from "@/app/extra-services/constants";
 import convertTimeTo12HoursBased from "@/app/extra-services/convertTimeTo12HoursBased";
 import useSendAuthRequest from "@/app/extra-services/useSendAuthRequest";
 import Link from "next/link";
@@ -8,7 +9,6 @@ import Swal from "sweetalert2";
 
 export default function Schedule(props) {
     const sendReq=useSendAuthRequest()
-    const days=["Sun","Mon","Tue","Wed","Thu","Fri","Sat"]
     const [data,setData]=useState(null)
     useEffect(_=>{
         sendReq(`/Account/${props.id}/schedules`).then(res=>{
@@ -19,15 +19,17 @@ export default function Schedule(props) {
             }
         })   
     },[])
-    async function DeleteHandler(id,startTime,day) {
+    async function DeleteHandler(shiftId) {
         const ans=await Swal.fire({title:"Are you sure you want to delete this",icon:"question",showCancelButton:true,confirmButtonText:"Yes"})
         if(ans.isDenied||ans.isDismissed)
             return
-        const res=await sendReq(`/Account/${id}/schedule?day=${day}&startTime=${startTime}`,"delete")
+        const res=await sendReq(`/Account/doctor/schedule/${shiftId}`,"delete")
         if(res.status===200)
         {
             Swal.fire({title:"Deleted Successfully",icon:"success"})
-            const newData=data.filter(x=>x.startTime==startTime&&x.day==day)
+           
+            
+            const newData=data.filter(x=>x.shiftId!==shiftId)
             setData(newData)
         }
         else{
@@ -61,12 +63,12 @@ export default function Schedule(props) {
             {
                 data.map(e=>{
                     return(
-                        <tr key={e.startTime+e.day}>
+                        <tr key={e.shiftId}>
                             <td className="text-center">{days[e.day]}</td>
                             <td className="text-center">{convertTimeTo12HoursBased(e.startTime)}</td>
                             <td className="text-center">{convertTimeTo12HoursBased(e.endTime)}</td>
-                            <td className="text-center"><button className="btn btn-outline-primary">Update</button></td>
-                            <td className="text-center"><button onClick={async ev=>await DeleteHandler(props.id,e.startTime,e.day)} className="btn btn-outline-danger">Delete</button></td>
+                            <td className="text-center"><Link href={`/shift/${e.shiftId}`} className="btn btn-outline-primary">Update</Link></td>
+                            <td className="text-center"><button onClick={async ev=>await DeleteHandler(e.shiftId)} className="btn btn-outline-danger">Delete</button></td>
                         </tr>
                     )
                 })

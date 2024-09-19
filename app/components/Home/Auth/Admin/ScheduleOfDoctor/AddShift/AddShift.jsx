@@ -35,7 +35,7 @@ else Swal.fire({title:"Something went wrong",icon:"error"})
             <div class="input-group-prepend">
               <span class="input-group-text">Day</span>
             </div>
-           <select required className="form-select">
+           <select onChange={e=>setDay(e.target.value)} required className="form-select">
             <option value="Sunday">Sunday</option>
             <option value="Monday">Monday</option>
             <option value="Tuesday">Tuesday</option>

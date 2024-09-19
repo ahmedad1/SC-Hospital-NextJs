@@ -3,6 +3,7 @@ import axios from 'axios'
 import { BACKEND_BASEURL, WITH_CREDENTIALS } from './constants'
 import { useRouter } from 'next/navigation'
 import Cookies from "cookie-universal"
+import Swal from 'sweetalert2'
 
 export default function useSendAuthRequest() {
     const router=useRouter()
@@ -20,6 +21,7 @@ export default function useSendAuthRequest() {
                 }
                 catch(ex){
                     if(ex.response.status===401){
+                       await Swal.fire({title:"Your session has been ended",icon:"error"})
                         cookies.removeAll()
                         router.replace("/")
                         router.refresh()
