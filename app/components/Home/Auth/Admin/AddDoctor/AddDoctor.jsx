@@ -16,6 +16,8 @@ export default function AddDoctor() {
   const [gender, setGender] = useState("Male");
   const [isConfirmed, setIsConfirmed] = useState("true");
   const [department, setDepartment] = useState("Dental");
+  const [price, setPrice] = useState(null);
+  const [bio, setBio] = useState(null);
   const [isLoading, setIsLoading] = useState(false);
   const profilePictureRef = useRef();
   const sendReq = useSendAuthRequest();
@@ -32,12 +34,15 @@ export default function AddDoctor() {
     formData.append("Birthdate", birthDate);
     formData.append("Gender", gender);
     formData.append("EmailConfirmed", isConfirmed);
-    formData.append("department",department)
+    formData.append("department", department);
+    formData.append("price",price)
+    if(bio)
+    formData.append("biography",bio)
     if (profilePictureRef.current.files[0])
       formData.append("ProfilePicture", profilePictureRef.current.files[0]);
-    setIsLoading(true)
+    setIsLoading(true);
     const res = await sendReq("/Account/new-doctor-account", "post", formData);
-    setIsLoading(false)
+    setIsLoading(false);
     if (res.status === 200)
       Swal.fire({ title: "Added Successfully", icon: "success" });
     else if (res.status === 400) {
@@ -153,6 +158,28 @@ export default function AddDoctor() {
         <div class="form-group mt-3">
           <div class="input-group">
             <div class="input-group-prepend">
+              <span class="input-group-text">Price of booking</span>
+            </div>
+            <input
+              onChange={(e) => setPrice(e.target.value)}
+              required
+              step={0.1}
+              type="number"
+              id="price"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-group mt-4">
+          <label class="form-label">Biography (Optional)</label>
+          <textarea
+            onChange={(e) => setBio(e.target.value)}
+            className="form-control"
+          ></textarea>
+        </div>
+        <div class="form-group mt-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
               <span class="input-group-text">Department Name</span>
             </div>
             <select
@@ -161,9 +188,7 @@ export default function AddDoctor() {
               class="form-control"
               defaultValue={"Dental"}
             >
-              <option value="Dental" >
-                Dental
-              </option>
+              <option value="Dental">Dental</option>
               <option value="Opthalmology">Opthalmology</option>
               <option value="Internal_Medicine">Internal Medicine</option>
               <option value="Orthopedic">Orthopedic</option>
@@ -183,9 +208,7 @@ export default function AddDoctor() {
               class="form-control"
               defaultValue={"true"}
             >
-              <option value="true">
-                true
-              </option>
+              <option value="true">true</option>
               <option value="false">false</option>
             </select>
           </div>

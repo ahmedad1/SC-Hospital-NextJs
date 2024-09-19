@@ -16,6 +16,8 @@ export default function UpdateDoctor(props) {
   const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
+  const[bio,setBio]=useState("")
+  const [price,setPrice]=useState("")
   const [isConfirmed, setIsConfirmed] = useState("");
   const [department, setDepartment] = useState("");
   const [data, setData] = useState(null);
@@ -48,6 +50,8 @@ export default function UpdateDoctor(props) {
     if (birthDate) json.push(getJsonPatchObj("birthdate", birthDate));
     if (department) json.push(getJsonPatchObj("department", department));
     if(isConfirmed)json.push(getJsonPatchObj("EmailConfirmed",isConfirmed));
+    if(price)json.push(getJsonPatchObj("price",price))
+    if(bio)json.push(getJsonPatchObj("biography",bio))
     setIsLoading(true)
     if (json.length) {
       const result = await sendReq(
@@ -225,6 +229,30 @@ export default function UpdateDoctor(props) {
               <option value="false">false</option>
             </select>
           </div>
+        </div>
+        <div class="form-group mt-3">
+          <div class="input-group">
+            <div class="input-group-prepend">
+              <span class="input-group-text">Price of booking</span>
+            </div>
+            <input
+              onChange={(e) => setPrice(e.target.value)}
+              defaultValue={data.price}
+              required
+              step={0.1}
+              type="number"
+              id="price"
+              class="form-control"
+            />
+          </div>
+        </div>
+        <div class="form-group mt-4">
+          <label class="form-label">Biography (Optional)</label>
+          <textarea
+            onChange={(e) => setBio(e.target.value)}
+            defaultValue={data.biography}
+            className="form-control"
+          ></textarea>
         </div>
         <div className="form-group mt-4">
           <label className="form-label">Profile Picture (Optional)</label>

@@ -21,14 +21,16 @@ export default function DoctorSection() {
         <table className="table ">
           <thead className="bg-primary text-light">
             <tr>
-              <th scope="col">First Name</th>
-              <th scope="col">Last Name</th>
-              <th scope="col">User Name</th>
+              <th scope="col">FirstName</th>
+              <th scope="col">LastName</th>
+              <th scope="col">UserName</th>
               <th scope="col">Email</th>
               <th scope="col">Gender</th>
               <th scope="col">BirthDate</th>
-              <th scope="col">EmailConfirmed</th>
+              <th scope="col">Confirmed</th>
               <th scope="col">Department</th>
+              <th scope="col">Price</th>
+              <th scope="col">Biography</th>
               <th scope="col">Schedule</th>
               <th scope="col">Update</th>
               <th scope="col">Delete</th>

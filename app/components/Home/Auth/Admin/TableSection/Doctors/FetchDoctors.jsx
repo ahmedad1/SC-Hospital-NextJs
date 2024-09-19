@@ -76,6 +76,8 @@ export default function FetchDoctors() {
           <td>{x.birthDate}</td>
           <td>{x.emailConfirmed.toString()}</td>
           <td>{x.departmentName}</td>
+          <td>{x.price}</td>
+          <td>{x.biography.length>10?x.biography.slice(0,10)+"...":x.biography}</td>
           <td><Link href={`/${x.id}/schedule`} className="btn btn-outline-primary">Schedule</Link></td>
           <td><Link href={`/doctor/${x.id}`} className="btn btn-outline-primary">Update</Link></td>
           <td><button onClick={async e=>await handleDelete(x.id) } className="btn btn-outline-danger">Delete</button></td>
