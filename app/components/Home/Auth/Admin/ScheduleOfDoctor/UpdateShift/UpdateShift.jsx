@@ -46,8 +46,12 @@ export default function UpdateShift(props) {
     setIsLoading(false)
     if(res.status===200)
       Swal.fire({title:"Updated Successfully",icon:"success"})
-    else
-    Swal.fire({title:"Something went wrong",icon:"error"})
+    else{
+      if(res.data.dayIsRepeated){
+        Swal.fire({title:"Day is already exists",icon:"error"})
+      }else
+       Swal.fire({title:"Something went wrong",icon:"error"})
+    }
 
   }
   return (

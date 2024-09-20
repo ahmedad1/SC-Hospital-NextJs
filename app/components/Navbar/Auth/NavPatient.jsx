@@ -23,12 +23,12 @@ export default function NavPatient() {
             </li>
 
             <li className="nav-item">
-              <Link href="#about" className="nav-link">
+              <Link href="/#about" className="nav-link">
                 About us
               </Link>
             </li>
             <li className="nav-item">
-              <Link href="#serv" className="nav-link">
+              <Link href="/#serv" className="nav-link">
                 Services
               </Link>
             </li>

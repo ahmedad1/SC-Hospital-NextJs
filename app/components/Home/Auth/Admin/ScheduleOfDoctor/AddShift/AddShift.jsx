@@ -18,9 +18,16 @@ const result=await sendReq(`/Account/${props.id}/schedule`,"post",{
     startTime:startTime,
     endTime:endTime
 })
+if(!result.status)return
 if(result.status===200)
     Swal.fire({title:"Added Successfully",icon:"success"})
-else Swal.fire({title:"Something went wrong",icon:"error"})
+else{
+  if(result.data.dayIsRepeated){
+    Swal.fire({title:"Day is already exists",icon:"error"})
+  }else
+   Swal.fire({title:"Something went wrong",icon:"error"})
+
+}
 
 }
   return (
