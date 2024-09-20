@@ -6,6 +6,7 @@ export default function middleware(context) {
   const AdminRegx=[/^\/[0-9]+\/add-shift/i,/^\/[0-9]+\/schedule/i,/^\/doctor\/[0-9]+/i,/^\/shift\/[0-9]+/i]
   const Doctor = [];
   const Patient = [];
+  const PatientRegex=[/^\/department\/(Dental|Opthalmology|Internal_Medicine|Orthopedic|Analysis|Neurology)/i]
   const SharedAuth = ["/profile-settings"];
   const UnAuth = ["/email-confirmation"];
 
@@ -28,7 +29,7 @@ export default function middleware(context) {
     return NextResponse.redirect(new URL("/", context.nextUrl.origin));
   }
   if (
-    Patient.some((e) => e === context.nextUrl.pathname) &&
+    (Patient.some((e) => e === context.nextUrl.pathname)||PatientRegex.some(e=>e.test(context.nextUrl.pathname))) &&
     checkCookies() !== "Pat"
   ) {
     return NextResponse.redirect(new URL("/", context.nextUrl.origin));

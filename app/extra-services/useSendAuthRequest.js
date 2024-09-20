@@ -25,7 +25,7 @@ export default function useSendAuthRequest() {
                         cookies.removeAll()
                         router.replace("/")
                         router.refresh()
-                        return 
+                        return {status:200,data:[]}
                     }
 
                 }
