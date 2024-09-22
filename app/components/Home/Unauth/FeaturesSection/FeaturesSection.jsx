@@ -1,7 +1,7 @@
 import React from "react";
 import Image from "next/image";
 import "./FeaturesSection.css";
-import analysis from "@/app/public/analysis.jpg";
+import dermatology from "@/app/public/dermatology.png";
 import bonedept from "@/app/public/bonedept.jpg";
 import braindept from "@/app/public/braindept.jpg";
 import Dental from "@/app/public/Dental.webp";
@@ -120,26 +120,23 @@ export default function FeaturesSection({ className, isAuth }) {
               </div>
             </Link>
             <Link
-              href={isAuth ? "/department/Analysis" : "#UnAuth"}
+              href={isAuth ? "/department/dermatology" : "#UnAuth"}
               data-bs-toggle={!isAuth&&"modal"}
               className="col-lg-4 col-md-6 col-12 analysisanchor"
               style={{ textDecoration: "none" }}
             >
               <div className="card">
                 <Image
-                  src={analysis}
+                  src={dermatology}
                   className="card-img-top feature "
                   alt="reload the page"
                 />
                 <div className="card-body mt-4">
                   <h6 className="card-title text-primary">
-                    Analysis & Radiology Department
+                    Dermatology Department
                   </h6>
                   <div className="card-text text-muted">
-                    Many Professional & Experts Lab Doctors For Making Sevral
-                    Tests For You And Trying To Get The Most Accurate Possible
-                    Results
-                  </div>
+                  The Dermatology Department specializes in the diagnosis and treatment of skin, hair, and nail conditions.</div>
                 </div>
               </div>
             </Link>

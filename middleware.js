@@ -6,7 +6,7 @@ export default function middleware(context) {
   const AdminRegx=[/^\/[0-9]+\/add-shift/i,/^\/[0-9]+\/schedule/i,/^\/doctor\/[0-9]+/i,/^\/shift\/[0-9]+/i]
   const Doctor = [];
   const Patient = [];
-  const PatientRegex=[/^\/department\/(Dental|Opthalmology|Internal_Medicine|Orthopedic|Analysis|Neurology)/i]
+  const PatientRegex=[/^\/department\/(Dental|Opthalmology|Internal_Medicine|Orthopedic|Dermatology|Neurology)/i]
   const SharedAuth = ["/profile-settings"];
   const UnAuth = ["/email-confirmation"];
 

@@ -192,7 +192,7 @@ export default function AddDoctor() {
               <option value="Opthalmology">Opthalmology</option>
               <option value="Internal_Medicine">Internal Medicine</option>
               <option value="Orthopedic">Orthopedic</option>
-              <option value="Analysis">Analysis & Radiology</option>
+              <option value="Dermatology">Dermatology</option>
               <option value="Neurology">Neurology</option>
             </select>
           </div>

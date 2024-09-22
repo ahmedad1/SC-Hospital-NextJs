@@ -129,7 +129,7 @@ export default function DetailsOfDoctor(props) {
                       .toString()
                       .padStart(2, "0")}-${(
                       dateObj.getDate() +
-                      ((day - dateObj.getDay() + 7) % 7)
+                      ((e.target.value - dateObj.getDay() + 7) % 7)
                     )
                       .toString()
                       .padStart(2, "0")}`)
@@ -138,7 +138,7 @@ export default function DetailsOfDoctor(props) {
                   className="form-select"
                 >
                   <option>Choose day</option>
-                  {data.shifts.map((e) => {
+                  {data?.shifts?.map((e) => {
                     return (
                       <option key={e.shiftId} value={e.day}>
                         {days[e.day]}
@@ -158,6 +158,7 @@ export default function DetailsOfDoctor(props) {
                     type="date"
                     className="form-control "
                     step={7}
+                    onChange={e=>setDate(e.target.value)}
                     defaultValue={`${dateObj.getFullYear()}-${(
                       dateObj.getMonth() + 1
                     )

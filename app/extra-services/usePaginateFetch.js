@@ -50,9 +50,10 @@ export default function usePaginateFetch(
     }
     window.sessionStorage.setItem("scrollWindowCalled",false)
   };
-  if(addEventOnly)
-    return scrollEvent
+
   useEffect((_) => {
+    if(addEventOnly)
+      return
     sessionStorage.setItem(sessionStorageKey,1)
     fetchData(1).then((_) => {
       window.onscroll=scrollEvent
@@ -64,4 +65,6 @@ export default function usePaginateFetch(
         sessionStorage.clear()
     } 
   }, []);
+  if(addEventOnly)
+    return scrollEvent
 }
