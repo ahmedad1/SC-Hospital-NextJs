@@ -33,11 +33,6 @@ export default function NavPatient() {
               </Link>
             </li>
 
-            <li className="nav-item">
-              <Link href="#appo" className="nav-link appoints">
-                Appointments
-              </Link>
-            </li>
           </ul>
           <div
             className="nav-link d-flex p-0 mt-lg-0 mt-3"

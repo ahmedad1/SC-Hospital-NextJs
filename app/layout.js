@@ -6,6 +6,7 @@ import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ReduxProvider from "./Redux-Toolkit/ReduxProviderComponent/ReduxProvider";
 import RecaptchProvider from "./components/RecaptchProvider";
+import { GoogleOAuthProvider } from "@react-oauth/google";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,13 +27,18 @@ export const metadata = {
 export default function RootLayout({ children }) {
   return (
     <html lang="en">
+      <head>
+      <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.7.2/font/bootstrap-icons.css"/>
+      </head>
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <RecaptchProvider>
-          <ReduxProvider>
-            <Navbar />
-            {children}
-          </ReduxProvider>
-        </RecaptchProvider>
+        <GoogleOAuthProvider clientId="600346872733-fb3driupuhka65aoenlv2ssh88pp5nui.apps.googleusercontent.com">
+          <RecaptchProvider>
+            <ReduxProvider>
+              <Navbar />
+              {children}
+            </ReduxProvider>
+          </RecaptchProvider>
+        </GoogleOAuthProvider>
         <Footer />
         <BootstrapComponent />
       </body>

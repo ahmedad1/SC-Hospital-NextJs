@@ -18,6 +18,7 @@ const result=await sendReq(`/Account/${props.id}/schedule`,"post",{
     startTime:startTime,
     endTime:endTime
 })
+setIsLoading(false);
 if(!result.status)return
 if(result.status===200)
     Swal.fire({title:"Added Successfully",icon:"success"})

@@ -11,6 +11,7 @@ import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { Oval } from "react-loader-spinner";
 import { useReCaptcha } from "next-recaptcha-v3";
+import { useGoogleLogin } from "@react-oauth/google";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
@@ -22,7 +23,44 @@ export default function SignUp() {
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const [googleLoginIsLoading, setGoogleLoginIsLoading] = useState(false);
   const inputPasswordRef = useRef();
+  const loginGoogle=useGoogleLogin({
+    onSuccess:async e=>{
+      
+      setGoogleLoginIsLoading(true)
+      const token=e.access_token
+      if (!token) return;
+      try {
+        const result = await axios.post(
+          `${BACKEND_BASEURL}api/Account/google-oauth`,
+          {
+            accessToken: token,
+          }
+          ,{ withCredentials: WITH_CREDENTIALS }
+        );
+        setGoogleLoginIsLoading(false)
+       
+        if (result.data.success && result.data.emailConfirmed) {
+          router.replace("/")
+          router.refresh()
+          return;
+        } else {
+          Swal.fire({ title: "Your email is not confirmed", icon: "error" });
+          return;
+        }
+      } catch {
+        setGoogleLoginIsLoading(false)
+        Swal.fire({ title: "Bad Credentials" ,icon:"error"});
+      }
+    },
+    onError:e=>{
+      setGoogleLoginIsLoading(false)
+    },
+    onNonOAuthError:e=>{
+      setGoogleLoginIsLoading(false)
+    }
+  })
   const router = useRouter();
   const cookies = Cookies();
   async function submitForm(e) {
@@ -243,6 +281,35 @@ export default function SignUp() {
             />
           )}
         </button>
+        <div className="d-flex my-3 align-items-center">
+            <hr style={{ width: "46%" }} />
+            <small className="text-center">or conitinue with</small>
+            <hr style={{ width: "45%" }} />
+          </div>
+          <button
+            type="button"
+         
+            onClick={(e) => {
+              if (googleLoginIsLoading || isLoading) return;
+              setGoogleLoginIsLoading(true);
+              loginGoogle();
+            }}
+            className="btn btn-social btn-google  form-control d-flex justify-content-center align-items-center "
+          >
+            <i className="bi bi-google me-2"></i> Sign Up with Google
+            {googleLoginIsLoading && (
+              <Oval
+                visible={true}
+                height="18"
+                width="18"
+                color="#ed6aab"
+                secondaryColor="#000"
+                ariaLabel="oval-loading"
+                wrapperStyle={{}}
+                wrapperClass="ms-2"
+              />
+            )}
+          </button>
       </form>
     </div>
   );
