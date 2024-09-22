@@ -5,6 +5,7 @@ import BootstrapComponent from "./components/BootstrapComponent";
 import Navbar from "./components/Navbar/Navbar";
 import Footer from "./components/Footer/Footer";
 import ReduxProvider from "./Redux-Toolkit/ReduxProviderComponent/ReduxProvider";
+import RecaptchProvider from "./components/RecaptchProvider";
 const geistSans = localFont({
   src: "./fonts/GeistVF.woff",
   variable: "--font-geist-sans",
@@ -26,10 +27,12 @@ export default function RootLayout({ children }) {
   return (
     <html lang="en">
       <body className={`${geistSans.variable} ${geistMono.variable}`}>
-        <ReduxProvider>
-          <Navbar />
-          {children}
-        </ReduxProvider>
+        <RecaptchProvider>
+          <ReduxProvider>
+            <Navbar />
+            {children}
+          </ReduxProvider>
+        </RecaptchProvider>
         <Footer />
         <BootstrapComponent />
       </body>

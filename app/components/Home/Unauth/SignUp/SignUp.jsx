@@ -10,12 +10,14 @@ import Cookies from "cookie-universal";
 import { useRef, useState } from "react";
 import Swal from "sweetalert2";
 import { Oval } from "react-loader-spinner";
+import { useReCaptcha } from "next-recaptcha-v3";
 
 export default function SignUp() {
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
   const [userName, setUserName] = useState("");
   const [email, setEmail] = useState("");
+  const {executeRecaptcha}=useReCaptcha()
   const [birthDate, setBirthDate] = useState("");
   const [password, setPassword] = useState("");
   const [gender, setGender] = useState("");
@@ -27,6 +29,7 @@ export default function SignUp() {
     e.preventDefault();
     if (isLoading) return;
     try {
+      const token=await executeRecaptcha("signup")
       setIsLoading(true);
       await axios.post(
         `${BACKEND_BASEURL}api/Account/sign-up`,
@@ -38,6 +41,7 @@ export default function SignUp() {
           gender: gender,
           email: email,
           password: password,
+          RecaptchaToken:token
         },
         { withCredentials: WITH_CREDENTIALS }
       );

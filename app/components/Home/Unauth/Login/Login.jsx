@@ -5,6 +5,7 @@ import {
 } from "@/app/extra-services/constants";
 import userlogo from "@/app/public/userlogo.png";
 import axios from "axios";
+import { useReCaptcha } from "next-recaptcha-v3";
 import Image from "next/image";
 import { useRouter } from "next/navigation";
 import { useRef, useState } from "react";
@@ -15,6 +16,7 @@ export default function Login() {
   const [userName, setUserName] = useState("");
   const [password, setPassword] = useState("");
   const [isLoading, setIsLoading] = useState(false);
+  const {executeRecaptcha}=useReCaptcha()
   const passwordRef=useRef()
   const router = useRouter();
   async function submitForm(e) {
@@ -22,12 +24,16 @@ export default function Login() {
     if (isLoading) return;
     if (!userName || !password) return;
     try {
+      const token=await executeRecaptcha("login")
+    
+      
       setIsLoading(true)
       await axios.post(
         `${BACKEND_BASEURL}api/Account/log-in`,
         {
           userName: userName,
           password: password,
+          RecaptchaToken:token
         },
         { withCredentials: WITH_CREDENTIALS }
       );
